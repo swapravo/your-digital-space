@@ -487,27 +487,32 @@ function Index() {
                 </p>
               </div>
             ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSignedUp(true);
-                }}
-                className="space-y-4"
-              >
+              <form onSubmit={handleSignup} className="space-y-4">
                 <input
                   required
+                  maxLength={100}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
                   className="w-full rounded-full border-2 border-green-deep bg-cream px-6 py-4 text-base outline-none placeholder:text-muted-foreground"
                 />
                 <input
                   required
                   type="email"
+                  maxLength={255}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
                   className="w-full rounded-full border-2 border-green-deep bg-cream px-6 py-4 text-base outline-none placeholder:text-muted-foreground"
                 />
-                <button className="w-full rounded-full bg-ink px-8 py-4 text-sm font-semibold tracking-widest text-cream transition-transform hover:-translate-y-0.5">
-                  GET THE GOOD STUFF →
+                {error && <p className="text-sm font-semibold text-pink">{error}</p>}
+                <button
+                  disabled={submitting}
+                  className="w-full rounded-full bg-ink px-8 py-4 text-sm font-semibold tracking-widest text-cream transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+                >
+                  {submitting ? "SENDING..." : "GET THE GOOD STUFF →"}
                 </button>
+
                 <p className="text-sm">
                   By signing up, you agree to receive offers and product updates. No spam.
                   Promise-ish.

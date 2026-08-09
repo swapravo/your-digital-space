@@ -1,11 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 
+import { saveContact } from "@/lib/contact.functions";
 import heroBar from "@/assets/hero-bar.jpg";
 import barPeanut from "@/assets/bar-peanut.jpg";
 import barBrownie from "@/assets/bar-brownie.jpg";
 import barCaramel from "@/assets/bar-caramel.jpg";
 import ingredients from "@/assets/ingredients.jpg";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({

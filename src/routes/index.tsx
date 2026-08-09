@@ -106,6 +106,32 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [signedUp, setSignedUp] = useState(false);
   const [openEdu, setOpenEdu] = useState<string | null>("01");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const submitContact = useServerFn(saveContact);
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+    try {
+      const res = await submitContact({
+        data: { name: name.trim(), email: email.trim() },
+      });
+      if (res.ok) {
+        setSignedUp(true);
+      } else {
+        setError(res.error ?? "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-cream text-ink">

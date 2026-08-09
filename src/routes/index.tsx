@@ -1,11 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 
+import { saveContact } from "@/lib/contact.functions";
 import heroBar from "@/assets/hero-bar.jpg";
 import barPeanut from "@/assets/bar-peanut.jpg";
 import barBrownie from "@/assets/bar-brownie.jpg";
 import barCaramel from "@/assets/bar-caramel.jpg";
 import ingredients from "@/assets/ingredients.jpg";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -103,6 +106,32 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [signedUp, setSignedUp] = useState(false);
   const [openEdu, setOpenEdu] = useState<string | null>("01");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const submitContact = useServerFn(saveContact);
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSubmitting(true);
+    try {
+      const res = await submitContact({
+        data: { name: name.trim(), email: email.trim() },
+      });
+      if (res.ok) {
+        setSignedUp(true);
+      } else {
+        setError(res.error ?? "Something went wrong. Please try again.");
+      }
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-cream text-ink">
@@ -458,27 +487,32 @@ function Index() {
                 </p>
               </div>
             ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSignedUp(true);
-                }}
-                className="space-y-4"
-              >
+              <form onSubmit={handleSignup} className="space-y-4">
                 <input
                   required
+                  maxLength={100}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
                   className="w-full rounded-full border-2 border-green-deep bg-cream px-6 py-4 text-base outline-none placeholder:text-muted-foreground"
                 />
                 <input
                   required
                   type="email"
+                  maxLength={255}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
                   className="w-full rounded-full border-2 border-green-deep bg-cream px-6 py-4 text-base outline-none placeholder:text-muted-foreground"
                 />
-                <button className="w-full rounded-full bg-ink px-8 py-4 text-sm font-semibold tracking-widest text-cream transition-transform hover:-translate-y-0.5">
-                  GET THE GOOD STUFF →
+                {error && <p className="text-sm font-semibold text-pink">{error}</p>}
+                <button
+                  disabled={submitting}
+                  className="w-full rounded-full bg-ink px-8 py-4 text-sm font-semibold tracking-widest text-cream transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+                >
+                  {submitting ? "SENDING..." : "GET THE GOOD STUFF →"}
                 </button>
+
                 <p className="text-sm">
                   By signing up, you agree to receive offers and product updates. No spam.
                   Promise-ish.

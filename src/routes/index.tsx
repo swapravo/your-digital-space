@@ -195,14 +195,21 @@ function Index() {
         </nav>
         {menuOpen && (
           <div className="border-t border-ink/10 bg-cream px-5 py-4 md:hidden">
-            {["Shop", "Why Good?", "Ingredients", "Reviews", "Cart"].map((l) => (
+            {[
+              ["Shop", "#shop"],
+              ["Why Good?", "#why"],
+              ["Ingredients", "#ingredients"],
+              ["Reviews", "#reviews"],
+              ["HR Bot", "/hr-bot"],
+              ["Cart", "#shop"],
+            ].map(([label, href]) => (
               <a
-                key={l}
-                href="#shop"
+                key={label}
+                href={href}
                 onClick={() => setMenuOpen(false)}
                 className="block py-2 text-lg font-medium"
               >
-                {l}
+                {label}
               </a>
             ))}
           </div>

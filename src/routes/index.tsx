@@ -197,14 +197,16 @@ function Index() {
         </nav>
         {menuOpen && (
           <div className="border-t border-ink/10 bg-cream px-5 py-4 md:hidden">
-            {[
-              ["Shop", "#shop"],
-              ["Why Good?", "#why"],
-              ["Ingredients", "#ingredients"],
-              ["Reviews", "#reviews"],
-              ["HR Bot", "/hr-bot"],
-              ["Cart", "#shop"],
-            ].map(([label, href]) => (
+            {(
+              [
+                ["Shop", "#shop"],
+                ["Why Good?", "#why"],
+                ["Ingredients", "#ingredients"],
+                ["Reviews", "#reviews"],
+                ["HR Bot", "/hr-bot"],
+                ["Cart", "#shop"],
+              ] as const
+            ).map(([label, href]) => (
               <a
                 key={label}
                 href={href}

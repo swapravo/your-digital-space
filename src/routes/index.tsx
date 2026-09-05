@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 
@@ -160,16 +160,28 @@ function Index() {
             Good Bar.
           </a>
           <ul className="hidden items-center gap-8 text-sm font-medium md:flex">
-            {[
-              ["Shop", "#shop"],
-              ["Why Good?", "#why"],
-              ["Ingredients", "#ingredients"],
-              ["Reviews", "#reviews"],
-            ].map(([label, href]) => (
+            {(
+              [
+                ["Shop", "#shop"],
+                ["Why Good?", "#why"],
+                ["Ingredients", "#ingredients"],
+                ["Reviews", "#reviews"],
+                ["HR Bot", "/hr-bot"],
+              ] as const
+            ).map(([label, href]) => (
               <li key={label}>
-                <a href={href} className="transition-colors hover:text-green">
-                  {label}
-                </a>
+                {href === "/hr-bot" ? (
+                  <Link
+                    to="/hr-bot"
+                    className="transition-colors hover:text-green"
+                  >
+                    {label}
+                  </Link>
+                ) : (
+                  <a href={href} className="transition-colors hover:text-green">
+                    {label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -188,14 +200,23 @@ function Index() {
         </nav>
         {menuOpen && (
           <div className="border-t border-ink/10 bg-cream px-5 py-4 md:hidden">
-            {["Shop", "Why Good?", "Ingredients", "Reviews", "Cart"].map((l) => (
+            {(
+              [
+                ["Shop", "#shop"],
+                ["Why Good?", "#why"],
+                ["Ingredients", "#ingredients"],
+                ["Reviews", "#reviews"],
+                ["HR Bot", "/hr-bot"],
+                ["Cart", "#shop"],
+              ] as const
+            ).map(([label, href]) => (
               <a
-                key={l}
-                href="#shop"
+                key={label}
+                href={href}
                 onClick={() => setMenuOpen(false)}
                 className="block py-2 text-lg font-medium"
               >
-                {l}
+                {label}
               </a>
             ))}
           </div>

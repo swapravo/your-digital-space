@@ -8,7 +8,7 @@ const questionSchema = z.object({
 });
 
 export const askHrBot = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => questionSchema.parse(data))
+  .validator((data: unknown) => questionSchema.parse(data))
   .handler(async ({ data }) => {
     const res = await fetch(WEBHOOK_URL, {
       method: "POST",

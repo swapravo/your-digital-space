@@ -170,14 +170,17 @@ function Index() {
               ] as const
             ).map(([label, href]) => (
               <li key={label}>
-                {href.startsWith("#") ? (
+                {href === "/hr-bot" ? (
+                  <Link
+                    to="/hr-bot"
+                    className="transition-colors hover:text-green"
+                  >
+                    {label}
+                  </Link>
+                ) : (
                   <a href={href} className="transition-colors hover:text-green">
                     {label}
                   </a>
-                ) : (
-                  <Link to={href} className="transition-colors hover:text-green">
-                    {label}
-                  </Link>
                 )}
               </li>
             ))}

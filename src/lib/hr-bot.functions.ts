@@ -25,7 +25,7 @@ export const askHrBot = createServerFn({ method: "POST" })
 
     const json = (await res.json()) as Record<string, unknown>;
     const answer =
-      String(json.output ?? json.answer ?? json.message ?? "").trim() ||
+      String(json["output"] ?? json["answer"] ?? json["message"] ?? "").trim() ||
       "No answer returned.";
 
     return { ok: true as const, answer };

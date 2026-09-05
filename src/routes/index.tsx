@@ -165,11 +165,18 @@ function Index() {
               ["Why Good?", "#why"],
               ["Ingredients", "#ingredients"],
               ["Reviews", "#reviews"],
+              ["HR Bot", "/hr-bot"],
             ].map(([label, href]) => (
               <li key={label}>
-                <a href={href} className="transition-colors hover:text-green">
-                  {label}
-                </a>
+                {href.startsWith("#") ? (
+                  <a href={href} className="transition-colors hover:text-green">
+                    {label}
+                  </a>
+                ) : (
+                  <Link to={href} className="transition-colors hover:text-green">
+                    {label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

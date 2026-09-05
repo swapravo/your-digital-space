@@ -160,13 +160,15 @@ function Index() {
             Good Bar.
           </a>
           <ul className="hidden items-center gap-8 text-sm font-medium md:flex">
-            {[
-              ["Shop", "#shop"],
-              ["Why Good?", "#why"],
-              ["Ingredients", "#ingredients"],
-              ["Reviews", "#reviews"],
-              ["HR Bot", "/hr-bot"],
-            ].map(([label, href]) => (
+            {(
+              [
+                ["Shop", "#shop"],
+                ["Why Good?", "#why"],
+                ["Ingredients", "#ingredients"],
+                ["Reviews", "#reviews"],
+                ["HR Bot", "/hr-bot"],
+              ] as const
+            ).map(([label, href]) => (
               <li key={label}>
                 {href.startsWith("#") ? (
                   <a href={href} className="transition-colors hover:text-green">

@@ -23,8 +23,7 @@ export const askHrBot = createServerFn({ method: "POST" })
       };
     }
 
-    const json = (await res.json()) as Record<string, unknown>;
-    const answer = String(json["answer"] ?? "").trim() || "No answer returned.";
+    const answer = (await res.text()).trim() || "No answer returned.";
 
     return { ok: true as const, answer };
   });

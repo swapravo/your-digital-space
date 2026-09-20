@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const WEBHOOK_URL = "https://nitikadalal.app.n8n.cloud/webhook/hr-policy-bot";
+const WEBHOOK_URL = "https://nishantsinha.app.n8n.cloud/webhook/hr-policy-bot";
 
 const questionSchema = z.object({
   question: z.string().trim().min(1, "Question is required").max(1000),
@@ -23,7 +23,8 @@ export const askHrBot = createServerFn({ method: "POST" })
       };
     }
 
-    const answer = (await res.text()).trim() || "No answer returned.";
+    const json = (await res.json()) as Record<string, unknown>;
+    const answer = String(json["answer"] ?? "").trim() || "No answer returned.";
 
     return { ok: true as const, answer };
   });

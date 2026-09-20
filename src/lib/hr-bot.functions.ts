@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const WEBHOOK_URL = "https://nishantsinha.app.n8n.cloud/webhook/hr-policy-bot";
+const WEBHOOK_URL = "https://rohndev.app.n8n.cloud/webhook/hr-policy-bot";
 
 const questionSchema = z.object({
   question: z.string().trim().min(1, "Question is required").max(1000),

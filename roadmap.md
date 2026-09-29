@@ -1,3 +1,3 @@
 # Roadmap
 
-- [ ] Connect /hr-bot to its backend — blocker: user's message did not include the webhook URL / OpenAPI spec (spec appears cut off)
+- [x] Connect /hr-bot to its backend — now pointing at https://roshnir.app.n8n.cloud/webhook/hr-policy-bot (plain-text response)
